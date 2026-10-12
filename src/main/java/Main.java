@@ -57,7 +57,7 @@ public class Main {
                 out.write("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length:".getBytes(StandardCharsets.UTF_8));
                 out.write(String.valueOf(idx - start).getBytes(StandardCharsets.UTF_8));
                 out.write("\r\n\r\n".getBytes(StandardCharsets.UTF_8));
-                out.write(requestLine.substring(start, idx).getBytes(StandardCharsets.UTF_8));
+                out.write(requestLine.substring(start, idx - 1).getBytes(StandardCharsets.UTF_8));
             } else if (path1.equals("/")) {
                 out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes(StandardCharsets.UTF_8));
             } else {
