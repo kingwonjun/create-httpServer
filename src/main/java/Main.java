@@ -25,7 +25,7 @@ public class Main {
             String path2 = "";
             int start = requestLine.indexOf('/');
             int end = start + 1;
-            while (requestLine.charAt(end) != ' ') {
+            while (true) {
                 if (requestLine.charAt(end) == '/') {
                     path1 = requestLine.substring(start, end + 1);
                     System.out.println(1);
