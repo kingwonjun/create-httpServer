@@ -21,15 +21,24 @@ public class Main {
             BufferedReader reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
             OutputStream out = clientSocket.getOutputStream();
             String requestLine = reader.readLine();
-
+            String path1 = "";
+            String path2 = "";
             int start = requestLine.indexOf('/');
-            int end = requestLine.indexOf('/', start + 1);
-
-            String path1 = requestLine.substring(start, end + 1);
-
-            start = end + 1;
-            end = requestLine.indexOf(' ', start);
-            String path2 = requestLine.substring(start, end);
+            int end = start + 1;
+            while (requestLine.charAt(end) != ' ') {
+                if (requestLine.charAt(end) == '/') {
+                    path1 = requestLine.substring(start, end + 1);
+                    start = end + 1;
+                    end = requestLine.indexOf(' ', start);
+                    path2 = requestLine.substring(start, end);
+                    break;
+                }
+                if (requestLine.charAt(end) == ' ') {
+                    path1 = requestLine.substring(start, end);
+                    break;
+                }
+            }
+            
             if (path1.equals("/echo/")) {
                 int pathSize = path2.length();
                 out.write("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length:".getBytes(StandardCharsets.UTF_8));
