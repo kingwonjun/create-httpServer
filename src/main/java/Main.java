@@ -49,15 +49,21 @@ public class Main {
                 out.write(path2.getBytes(StandardCharsets.UTF_8));
             } else if(path1.equals("/user-agent")) {
                 requestLine = reader.readLine();
+                System.out.println(1);
                 int idx = requestLine.toLowerCase().indexOf("user-agent");
+                System.out.println(2);
                 start = idx;
                 while (requestLine.charAt(idx) != '\r') {
                     idx++;
                 }
+                System.out.println(3);
                 out.write("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length:".getBytes(StandardCharsets.UTF_8));
+                System.out.println(4);
                 out.write(String.valueOf(idx - start).getBytes(StandardCharsets.UTF_8));
+                System.out.println(5);
                 out.write("\r\n\r\n".getBytes(StandardCharsets.UTF_8));
-                out.write(requestLine.substring(start, idx - 1).getBytes(StandardCharsets.UTF_8));
+                System.out.println(6);
+                out.write(requestLine.substring(start, idx).getBytes(StandardCharsets.UTF_8));
             } else if (path1.equals("/")) {
                 out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes(StandardCharsets.UTF_8));
             } else {
