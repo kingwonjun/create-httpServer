@@ -48,7 +48,7 @@ public class Main {
                 out.write(String.valueOf(pathSize).getBytes(StandardCharsets.UTF_8));
                 out.write("\r\n\r\n".getBytes(StandardCharsets.UTF_8));
                 out.write(path2.getBytes(StandardCharsets.UTF_8));
-            } else if (requestLine.startsWith("/ ")) {
+            } else if (requestLine.startsWith("/")) {
                 out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes(StandardCharsets.UTF_8));
             } else {
                 out.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes(StandardCharsets.UTF_8));
