@@ -3,6 +3,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+import static jdk.internal.org.jline.utils.Colors.s;
+
 public class Main {
     public static void main(String[] args) {
         // You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -28,14 +30,12 @@ public class Main {
             while (true) {
                 if (requestLine.charAt(end) == '/') {
                     path1 = requestLine.substring(start, end + 1);
-                    System.out.println(1);
                     start = end + 1;
                     end = requestLine.indexOf(' ', start);
                     path2 = requestLine.substring(start, end);
                     break;
                 }
                 if (requestLine.charAt(end) == ' ') {
-                    System.out.println(2);
                     path1 = requestLine.substring(start, end);
                     System.out.println(path1);
                     break;
@@ -49,6 +49,17 @@ public class Main {
                 out.write(String.valueOf(pathSize).getBytes(StandardCharsets.UTF_8));
                 out.write("\r\n\r\n".getBytes(StandardCharsets.UTF_8));
                 out.write(path2.getBytes(StandardCharsets.UTF_8));
+            } else if(path1.equals("/user-agent")) {
+                requestLine = reader.readLine();
+                int idx = requestLine.toLowerCase().indexOf("user-agent");
+                start = idx;
+                while (requestLine.charAt(idx) != '\r') {
+                    idx++;
+                }
+                out.write("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length:".getBytes(StandardCharsets.UTF_8));
+                out.write(String.valueOf(idx - start).getBytes(StandardCharsets.UTF_8));
+                out.write("\r\n\r\n".getBytes(StandardCharsets.UTF_8));
+                out.write(requestLine.substring(start, idx).getBytes(StandardCharsets.UTF_8));
             } else if (path1.equals("/")) {
                 out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes(StandardCharsets.UTF_8));
             } else {
