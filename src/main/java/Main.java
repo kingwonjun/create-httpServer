@@ -12,7 +12,7 @@ public class Main {
 
         try {
             ServerSocket serverSocket = new ServerSocket(4221);
-            Socket socket = new Socket();
+            Socket socket = new Socket(4221);
 
             serverSocket.setReuseAddress(true);
 
