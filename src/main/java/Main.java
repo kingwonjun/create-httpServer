@@ -51,10 +51,8 @@ public class Main {
                 requestLine = reader.readLine();
                 requestLine = reader.readLine();
                 System.out.println(requestLine);
-                int idx = requestLine.toLowerCase().indexOf("user-agent");
-                System.out.println("idx : "+ idx);
-                start = idx;
-                idx = requestLine.length();
+                start = 12;
+                int idx = requestLine.length();
                 out.write("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length:".getBytes(StandardCharsets.UTF_8));
                 out.write(String.valueOf(idx - start).getBytes(StandardCharsets.UTF_8));
                 out.write("\r\n\r\n".getBytes(StandardCharsets.UTF_8));
