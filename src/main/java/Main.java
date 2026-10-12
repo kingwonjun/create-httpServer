@@ -19,20 +19,27 @@ public class Main {
 
             InputStream input = clientSocket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
-
-
             OutputStream out = clientSocket.getOutputStream();
-
             String requestLine = reader.readLine();
-            for (int i = 0; i < requestLine.length(); i++) {
-                if (requestLine.charAt(i) == '/' && requestLine.charAt(i + 1) == ' ') {
-                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes(StandardCharsets.UTF_8));
-                    break;
-                }
-                if (i == requestLine.length() - 1) {
-                    out.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes(StandardCharsets.UTF_8));
-                    break;
-                }
+
+            int start = requestLine.indexOf('/');
+            int end = requestLine.indexOf('/', start + 1);
+
+            String path1 = requestLine.substring(start, end + 1);
+
+            start = end + 1;
+            end = requestLine.indexOf(' ', start);
+            String path2 = requestLine.substring(start, end);
+            if (path1.equals("/echo/")) {
+                int pathSize = path2.length();
+                out.write("Http/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length".getBytes(StandardCharsets.UTF_8));
+                out.write(pathSize);
+                out.write("\r\n\r\n".getBytes(StandardCharsets.UTF_8));
+                out.write(path2.getBytes(StandardCharsets.UTF_8));
+            } else if (requestLine.startsWith("/ ")) {
+                out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes(StandardCharsets.UTF_8));
+            } else {
+                out.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes(StandardCharsets.UTF_8));
             }
             out.flush();
 
