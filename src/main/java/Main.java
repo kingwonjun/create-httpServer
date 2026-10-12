@@ -28,17 +28,19 @@ public class Main {
             while (requestLine.charAt(end) != ' ') {
                 if (requestLine.charAt(end) == '/') {
                     path1 = requestLine.substring(start, end + 1);
+                    System.out.println(1);
                     start = end + 1;
                     end = requestLine.indexOf(' ', start);
                     path2 = requestLine.substring(start, end);
                     break;
                 }
                 if (requestLine.charAt(end) == ' ') {
+                    System.out.println(2);
                     path1 = requestLine.substring(start, end);
                     break;
                 }
             }
-            
+
             if (path1.equals("/echo/")) {
                 int pathSize = path2.length();
                 out.write("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length:".getBytes(StandardCharsets.UTF_8));
