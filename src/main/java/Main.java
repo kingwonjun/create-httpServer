@@ -49,6 +49,7 @@ public class Main {
                 out.write(path2.getBytes(StandardCharsets.UTF_8));
             } else if(path1.equals("/user-agent")) {
                 requestLine = reader.readLine();
+                System.out.println(requestLine);
                 int idx = requestLine.toLowerCase().indexOf("user-agent");
                 System.out.println("idx : "+ idx);
                 start = idx;
