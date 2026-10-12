@@ -39,6 +39,7 @@ public class Main {
                     path1 = requestLine.substring(start, end);
                     break;
                 }
+                end++;
             }
 
             if (path1.equals("/echo/")) {
