@@ -50,6 +50,7 @@ public class Main {
             } else if(path1.equals("/user-agent")) {
                 requestLine = reader.readLine();
                 int idx = requestLine.toLowerCase().indexOf("user-agent");
+                System.out.println("idx : "+ idx);
                 start = idx;
                 idx = requestLine.length();
                 out.write("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length:".getBytes(StandardCharsets.UTF_8));
