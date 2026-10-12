@@ -32,7 +32,7 @@ public class Main {
             String path2 = requestLine.substring(start, end);
             if (path1.equals("/echo/")) {
                 int pathSize = path2.length();
-                out.write("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length".getBytes(StandardCharsets.UTF_8));
+                out.write("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length:".getBytes(StandardCharsets.UTF_8));
                 out.write(String.valueOf(pathSize).getBytes(StandardCharsets.UTF_8));
                 out.write("\r\n\r\n".getBytes(StandardCharsets.UTF_8));
                 out.write(path2.getBytes(StandardCharsets.UTF_8));
