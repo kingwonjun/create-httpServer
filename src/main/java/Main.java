@@ -12,14 +12,15 @@ public class Main {
 
         try {
             ServerSocket serverSocket = new ServerSocket(4221);
-            Socket socket = new Socket(4221);
+
 
             serverSocket.setReuseAddress(true);
+            Socket clientSocket = serverSocket.accept();
 
-            InputStream input = socket.getInputStream();
+            InputStream input = clientSocket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
 
-            Socket clientSocket = serverSocket.accept();
+
             OutputStream out = clientSocket.getOutputStream();
 
             String requestLine = reader.readLine();
